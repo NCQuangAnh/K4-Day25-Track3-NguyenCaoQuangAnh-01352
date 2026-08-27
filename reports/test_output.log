@@ -1,0 +1,99 @@
+# Test run log - Day 25 Reliability Lab
+
+Python 3.11.4 | Redis 7 via docker compose | 2026-08-27 22:24
+
+## make lint
+```
+All checks passed!
+```
+
+## make typecheck
+```
+Success: no issues found in 9 source files
+```
+
+## make test
+```
+============================= test session starts =============================
+platform win32 -- Python 3.11.4, pytest-9.1.1, pluggy-1.6.0 -- D:\Code\Python\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: E:\University\VinUni\Day25\K4-Day25-Track3-NguyenCaoQuangAnh-01352
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.2, hypothesis-6.165.10, cov-7.1.0
+collecting ... collected 67 items
+
+tests/test_cache.py::test_exact_match_returns_hit PASSED                 [  1%]
+tests/test_cache.py::test_similar_query_returns_hit PASSED               [  2%]
+tests/test_cache.py::test_dissimilar_query_returns_miss PASSED           [  4%]
+tests/test_cache.py::test_ttl_expiry PASSED                              [  5%]
+tests/test_cache.py::test_privacy_query_bypasses_cache PASSED            [  7%]
+tests/test_cache.py::test_privacy_query_not_stored PASSED                [  8%]
+tests/test_cache.py::test_false_hit_detection_different_years PASSED     [ 10%]
+tests/test_cache.py::test_same_year_not_flagged_as_false_hit PASSED      [ 11%]
+tests/test_cache.py::test_ngram_similarity_scores PASSED                 [ 13%]
+tests/test_circuit_breaker.py::test_starts_closed PASSED                 [ 14%]
+tests/test_circuit_breaker.py::test_opens_after_failure_threshold PASSED [ 16%]
+tests/test_circuit_breaker.py::test_does_not_open_below_threshold PASSED [ 17%]
+tests/test_circuit_breaker.py::test_success_resets_failure_count PASSED  [ 19%]
+tests/test_circuit_breaker.py::test_open_transitions_to_half_open_after_timeout PASSED [ 20%]
+tests/test_circuit_breaker.py::test_half_open_closes_on_success PASSED   [ 22%]
+tests/test_circuit_breaker.py::test_half_open_reopens_on_failure PASSED  [ 23%]
+tests/test_circuit_breaker.py::test_call_raises_circuit_open_error PASSED [ 25%]
+tests/test_circuit_breaker.py::test_call_records_success_and_failure PASSED [ 26%]
+tests/test_circuit_breaker.py::test_transition_log_records_state_changes PASSED [ 28%]
+tests/test_circuit_breaker.py::test_no_duplicate_transitions PASSED      [ 29%]
+tests/test_circuit_breaker.py::test_success_threshold_greater_than_one PASSED [ 31%]
+tests/test_config.py::test_default_config_loads PASSED                   [ 32%]
+tests/test_config.py::test_scenarios_loaded PASSED                       [ 34%]
+tests/test_gateway_contract.py::test_gateway_returns_response_with_route_reason PASSED [ 35%]
+tests/test_gateway_contract.py::test_gateway_falls_back_when_primary_fails PASSED [ 37%]
+tests/test_gateway_contract.py::test_gateway_returns_static_fallback_when_all_fail PASSED [ 38%]
+tests/test_gateway_contract.py::test_gateway_uses_cache PASSED           [ 40%]
+tests/test_metrics.py::test_percentile PASSED                            [ 41%]
+tests/test_metrics.py::test_report_dict_contains_required_metrics PASSED [ 43%]
+tests/test_properties.py::TestCircuitBreakerMachine::runTest PASSED      [ 44%]
+tests/test_properties.py::test_opens_exactly_at_threshold PASSED         [ 46%]
+tests/test_properties.py::test_one_success_always_resets_failure_count PASSED [ 47%]
+tests/test_properties.py::test_repeated_failures_log_one_open_transition PASSED [ 49%]
+tests/test_properties.py::test_similarity_is_bounded_and_symmetric PASSED [ 50%]
+tests/test_properties.py::test_similarity_of_identical_strings_is_one PASSED [ 52%]
+tests/test_properties.py::test_cache_roundtrip_respects_threshold PASSED [ 53%]
+tests/test_redis_cache.py::test_redis_connection PASSED                  [ 55%]
+tests/test_redis_cache.py::test_set_and_exact_get PASSED                 [ 56%]
+tests/test_redis_cache.py::test_ttl_expiry PASSED                        [ 58%]
+tests/test_redis_cache.py::test_shared_state_across_instances PASSED     [ 59%]
+tests/test_redis_cache.py::test_privacy_query_not_cached PASSED          [ 61%]
+tests/test_redis_cache.py::test_false_hit_different_years PASSED         [ 62%]
+tests/test_stretch_goals.py::test_no_budget_keeps_configured_order PASSED [ 64%]
+tests/test_stretch_goals.py::test_budget_below_degrade_point_uses_primary PASSED [ 65%]
+tests/test_stretch_goals.py::test_budget_above_degrade_point_switches_to_cheap_provider PASSED [ 67%]
+tests/test_stretch_goals.py::test_exhausted_budget_calls_no_provider PASSED [ 68%]
+tests/test_stretch_goals.py::test_budget_tracks_cumulative_spend PASSED  [ 70%]
+tests/test_stretch_goals.py::test_redis_down_falls_back_to_local_cache PASSED [ 71%]
+tests/test_stretch_goals.py::test_redis_down_without_fallback_is_a_miss_not_a_crash PASSED [ 73%]
+tests/test_stretch_goals.py::test_healthy_redis_does_not_report_degradation PASSED [ 74%]
+tests/test_stretch_goals.py::test_failures_on_one_replica_open_the_circuit_on_another PASSED [ 76%]
+tests/test_stretch_goals.py::test_only_one_replica_wins_the_probe PASSED [ 77%]
+tests/test_stretch_goals.py::test_shared_breaker_recovers_fleet_wide_on_probe_success PASSED [ 79%]
+tests/test_stretch_goals.py::test_concurrent_run_produces_same_request_count PASSED [ 80%]
+tests/test_stretch_goals.py::test_concurrent_breaker_never_over_counts_transitions PASSED [ 82%]
+tests/test_stretch_goals.py::test_without_single_flight_every_worker_calls_the_provider PASSED [ 83%]
+tests/test_stretch_goals.py::test_single_flight_collapses_concurrent_misses PASSED [ 85%]
+tests/test_stretch_goals.py::test_single_flight_reduces_provider_calls_versus_baseline PASSED [ 86%]
+tests/test_stretch_goals.py::test_single_flight_follower_still_answered_when_leader_fails PASSED [ 88%]
+tests/test_stretch_goals.py::test_single_flight_is_a_noop_without_a_cache PASSED [ 89%]
+tests/test_todo_requirements.py::test_similarity_uses_ngrams_not_jaccard XPASS [ 91%]
+tests/test_todo_requirements.py::test_semantic_cache_should_not_false_hit_different_intent XPASS [ 92%]
+tests/test_todo_requirements.py::test_privacy_queries_never_cached XPASS [ 94%]
+tests/test_todo_requirements.py::test_circuit_breaker_denies_when_open XPASS [ 95%]
+tests/test_todo_requirements.py::test_half_open_failure_gives_probe_failure_reason XPASS [ 97%]
+tests/test_todo_requirements.py::test_gateway_routes_through_providers XPASS [ 98%]
+tests/test_todo_requirements.py::test_metrics_csv_export XPASS (Stud...) [100%]
+
+============================== warnings summary ===============================
+    return EntryPoints(ep for group_eps in eps.values() for ep in group_eps)
+
+================== 60 passed, 7 xpassed, 1 warning in 32.27s ==================
+```

@@ -30,12 +30,22 @@ class CacheConfig(BaseModel):
 
 class LoadTestConfig(BaseModel):
     requests: int = Field(gt=0)
+    concurrency: int = Field(default=1, gt=0)  # 1 = sequential; >1 uses a ThreadPoolExecutor
+
+
+class BudgetConfig(BaseModel):
+    """Cost cap for a run.  limit=None disables cost-aware routing entirely."""
+
+    limit: float | None = None
+    degrade_ratio: float = Field(default=0.8, gt=0.0, le=1.0)
 
 
 class ScenarioConfig(BaseModel):
     name: str
     description: str = ""
     provider_overrides: dict[str, float] = Field(default_factory=dict)
+    budget_limit: float | None = None  # overrides LabConfig.budget.limit for this scenario
+    concurrency: int | None = None  # overrides LoadTestConfig.concurrency for this scenario
 
 
 class LabConfig(BaseModel):
@@ -43,9 +53,10 @@ class LabConfig(BaseModel):
     circuit_breaker: CircuitBreakerConfig
     cache: CacheConfig
     load_test: LoadTestConfig
+    budget: BudgetConfig = Field(default_factory=BudgetConfig)
     scenarios: list[ScenarioConfig] = Field(default_factory=list)
 
 
 def load_config(path: str | Path) -> LabConfig:
-    raw: dict[str, Any] = yaml.safe_load(Path(path).read_text())
+    raw: dict[str, Any] = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     return LabConfig.model_validate(raw)

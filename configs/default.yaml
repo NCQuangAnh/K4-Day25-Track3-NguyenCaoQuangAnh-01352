@@ -19,9 +19,16 @@ cache:
   redis_url: "redis://localhost:6379/0"
 load_test:
   requests: 100
+  concurrency: 1           # >1 fans the load out over a ThreadPoolExecutor
 
-# Chaos scenarios: each overrides provider fail_rate for targeted testing.
-# TODO(student): Add more scenarios or tweak these.
+# Cost-aware routing. limit: null disables it; above degrade_ratio the gateway prefers the
+# cheapest provider, and at 100% of the limit it serves cache-or-static only.
+budget:
+  limit: null
+  degrade_ratio: 0.8
+
+# Chaos scenarios: each overrides provider fail_rate, budget, or concurrency for
+# targeted testing.  Pass/fail criteria per scenario live in chaos.SCENARIO_CRITERIA.
 scenarios:
   - name: primary_timeout_100
     description: "Primary provider fails 100% — all traffic should fallback"
@@ -34,3 +41,11 @@ scenarios:
   - name: all_healthy
     description: "Baseline — both providers healthy"
     provider_overrides: {}
+  - name: cost_budget_squeeze
+    description: "Tight cost cap — gateway must demote to the cheap provider, then serve cache only"
+    provider_overrides: {}
+    budget_limit: 0.008
+  - name: concurrent_load_8
+    description: "Same healthy config under 8 concurrent workers — stretch goal"
+    provider_overrides: {}
+    concurrency: 8

@@ -3,6 +3,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+.hypothesis/
 *.pyc
-reports/metrics.json
-reports/final_report.md
+*.egg-info/
+
+# NOTE: reports/metrics.json and reports/final_report.md are REQUIRED deliverables,
+# so they are deliberately tracked rather than ignored.

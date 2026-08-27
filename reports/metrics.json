@@ -1,0 +1,27 @@
+{
+  "total_requests": 500,
+  "availability": 0.914,
+  "error_rate": 0.086,
+  "latency_p50_ms": 269.5,
+  "latency_p95_ms": 313.56,
+  "latency_p99_ms": 319.83,
+  "fallback_success_rate": 0.6972,
+  "cache_hit_rate": 0.594,
+  "circuit_open_count": 10,
+  "recovery_time_ms": 2226.520538330078,
+  "estimated_cost": 0.071254,
+  "estimated_cost_saved": 0.297,
+  "concurrency": 8,
+  "coalesced_waits": 22,
+  "coalesced_hits": 12,
+  "budget_limit": null,
+  "budget_spent": 0.071254,
+  "scenarios": {
+    "no_cache_baseline": "pass",
+    "primary_timeout_100": "pass",
+    "primary_flaky_50": "pass",
+    "all_healthy": "pass",
+    "cost_budget_squeeze": "pass",
+    "concurrent_load_8": "pass"
+  }
+}

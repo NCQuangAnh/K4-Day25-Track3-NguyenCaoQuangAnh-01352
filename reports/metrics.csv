@@ -1,0 +1,2 @@
+total_requests,availability,error_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,fallback_success_rate,cache_hit_rate,circuit_open_count,recovery_time_ms,estimated_cost,estimated_cost_saved,concurrency,coalesced_waits,coalesced_hits,budget_limit,budget_spent,scenario_no_cache_baseline,scenario_primary_timeout_100,scenario_primary_flaky_50,scenario_all_healthy,scenario_cost_budget_squeeze,scenario_concurrent_load_8
+500,0.914,0.086,269.5,313.56,319.83,0.6972,0.594,10,2226.520538330078,0.071254,0.297,8,22,12,,0.071254,pass,pass,pass,pass,pass,pass
